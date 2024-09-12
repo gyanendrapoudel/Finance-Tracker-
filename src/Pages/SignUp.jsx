@@ -2,8 +2,7 @@ import  Container  from "react-bootstrap/Container"
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import FinancialTips from "../components/FinancialTips"
-
-
+import Form from "../components/Form.jsx"
 const SignUp = () => {
 
   return (
@@ -13,7 +12,7 @@ const SignUp = () => {
           <Col>
             <FinancialTips />
           </Col>
-          <Col>Form</Col>
+          <Col><Form/></Col>
         </Row>
       </Container>
     </div>
