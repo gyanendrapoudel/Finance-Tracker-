@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import { fetchUser } from './axios'
+import { createUser } from '../utils/axios'
 import FormInput from './FormInput'
 import { Placeholder } from 'react-bootstrap'
 import { useState } from 'react'
@@ -35,12 +35,15 @@ function BasicExample() {
     setForm({ ...form, [name]: value })
   }
 
-  const handleOnSubmit = (e)=>{
+  const handleOnSubmit = async (e)=>{
     e.preventDefault();
     const{confirmPassword, ...rest}= form
     if(confirmPassword !== rest.password) {
       return toast.error("Password does not match!")
     }
+  
+      const {status, message} = await createUser(rest)
+      toast[status](message)
   }
 
 

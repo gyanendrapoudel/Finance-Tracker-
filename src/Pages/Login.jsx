@@ -1,6 +1,8 @@
+import Container  from "react-bootstrap/Container"
 const Login = () => {
+
   return (
-    <div>Login</div>
+    <Container>Login</Container>
   )
 }
 export default Login

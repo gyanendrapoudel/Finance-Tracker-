@@ -4,7 +4,7 @@ const FormInput = ({label, ...rest}) => {
     <Form.Group className="mb-3" controlId="formBasicEmail">
       <Form.Label>{label}</Form.Label>
       <Form.Control
-        required={true}
+        // required={true}
         {...rest}
       />
     </Form.Group>

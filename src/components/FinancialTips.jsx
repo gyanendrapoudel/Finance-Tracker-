@@ -28,15 +28,15 @@ const financialTips = [
 ]
 const FinancialTips = () => {
     const [quote, setQuote] = useState(financialTips[0])
-    // useEffect(()=>{
-    //     setInterval(()=>{
-    //      setQuote(financialTips[Math.floor(Math.random()*financialTips.length)])
-    //     },3000)
-    // },[])
+    useEffect(()=>{
+        setInterval(()=>{
+         setQuote(financialTips[Math.floor(Math.random()*financialTips.length)])
+        },3000)
+    },[])
   return (
     <div
-      className=" d-flex flex-column justify-content-center"
-      style={{ height: '50vh' }}
+      className=" d-flex flex-column justify-content-center "
+      style={{ height: '20vh' }}
     >
       
         {quote.tip} -<span className="fw-bold">{quote.person}</span>

@@ -6,16 +6,18 @@ import Form from "../components/Form.jsx"
 const SignUp = () => {
 
   return (
-    <div className="wrapper ">
-      <Container className="p-5">
-        <Row className=" main rounded fw-bolder">
-          <Col>
+  
+      <Container className="p-5 ">
+        <Row className=" main  rounded fw-bolder" >
+          <Col md={6}>
             <FinancialTips />
           </Col>
-          <Col><Form/></Col>
+          <Col md={6}>
+            <Form />
+          </Col>
         </Row>
       </Container>
-    </div>
+    
   )
 }
 export default SignUp
