@@ -7,6 +7,9 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
+import { IoLogIn } from 'react-icons/io5'
+import { IoLogOut } from 'react-icons/io5'
+import { IoCreateOutline } from 'react-icons/io5'
 
 const Header=()=> {
   return (
@@ -17,13 +20,14 @@ const Header=()=> {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             <Link className="nav-link" to="/signup">
-              SignUp
+             < IoCreateOutline className='fs-3 text-light'/> SignUp
             </Link>
             <Link className="nav-link" to="/">
+              <IoLogIn className="fs-3 text-light" />
               Login
             </Link>
             <Link className="nav-link" to="/">
-              Logout
+              <IoLogOut className="fs-3 text-light" /> Logout
             </Link>
           </Nav>
         </Navbar.Collapse>

@@ -7,4 +7,5 @@ yarn add bootstrap@5.3.3
 yarn add react-bootstrap
 yarn add react-toastify
 yarn add axios
+yarn add react-icons
 ```

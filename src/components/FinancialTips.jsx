@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-
+import { GrMoney } from 'react-icons/gr'
 const financialTips = [
   {
     tip: 'Do not save what is left after spending, but spend what is left after saving.',
@@ -35,12 +35,14 @@ const FinancialTips = () => {
     },[])
   return (
     <div
-      className=" d-flex flex-column justify-content-center "
+      className="mt-4 mb-3 d-flex flex-column justify-content-center "
       style={{ height: '20vh' }}
     >
-      
-        {quote.tip} -<span className="fw-bold">{quote.person}</span>
-      
+      <div className="mt-1">
+        <GrMoney className="" style={{fontSize:"5rem"}} />
+        <div className="fw-bolder">See your saving </div>
+      </div>
+      {quote.tip} -<span className="fw-bold">{quote.person}</span>
     </div>
   )
 }
