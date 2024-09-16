@@ -2,38 +2,52 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { createUser } from '../utils/axios'
 import FormInput from './FormInput'
-import { Placeholder } from 'react-bootstrap'
+
 import { useState } from 'react'
 import { toast } from 'react-toastify'
-
+import useForm from '../hooks/useForm'
+const initialState = {
+  name:"",
+  email:"",
+  password:"",
+  confirmPassword:""
+}
 function BasicExample() {
+  const {form, setForm, handleOnChange} = useForm(initialState)
+   console.log(form)
   const inputFields = [
-    { label: 'Name', type: 'text', Placeholder: 'Enter Name', name: 'name' },
+  
+    {
+      label: 'Name',
+      type: 'text',
+      placeholder: 'Enter Name',
+      name: 'name',
+      value: form.name,
+    },
+
     {
       label: 'Email',
       type: 'email',
-      Placeholder: 'Enter Email',
+      placeholder: 'Enter Email',
       name: 'email',
+      value: form.email,
     },
     {
       label: 'Password',
       type: 'password',
-      Placeholder: 'Enter Password',
+      placeholder: 'Enter Password',
       name: 'password',
+      value: form.password,
     },
     {
       label: 'Confirm Password',
       type: 'password',
-      Placeholder: 'Confirm Password',
+      placeholder: 'Confirm Password',
       name: 'confirmPassword',
+      value: form.confirmPassword,
     },
   ]
-  const [form, setForm] = useState({})
-
-  const handleOnChange = (e) => {
-    const { name, value } = e.target
-    setForm({ ...form, [name]: value })
-  }
+  
 
   const handleOnSubmit = async (e)=>{
     e.preventDefault();
@@ -44,13 +58,16 @@ function BasicExample() {
   
       const {status, message} = await createUser(rest)
       toast[status](message)
+      if (status === 'success') {
+        setForm(initialState)
+      }
   }
 
 
   return (
     <Form className="p-3 m-4 shadow-lg" onSubmit={handleOnSubmit}>
       {inputFields.map((field) => (
-        <FormInput key={field.email} {...field} onChange={handleOnChange} />
+        <FormInput key={field.name} {...field} onChange={handleOnChange} />
       ))}
       <Button variant="primary" type="submit" className="w-100">
         Submit
