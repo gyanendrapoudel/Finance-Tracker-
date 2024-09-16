@@ -1,8 +1,14 @@
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import FormInput from './FormInput'
-
+import useForm from '../hooks/useForm'
+const initialState={
+  email:"",
+  password:""
+}
 const LoginForm = () => {
+  
+  const {form , setForm, handleChange} = useForm(initialState)
     const loginFields = [
       {
         name: 'email',
@@ -10,6 +16,7 @@ const LoginForm = () => {
         type: 'email',
         required: true,
         placeholder: 'Enter email',
+        value: form.email
       },
       {
         name: 'password',
@@ -17,13 +24,18 @@ const LoginForm = () => {
         type: 'password',
         required: true,
         placeholder: 'Enter password',
+        value:form.password
       },
     ]
+   const handleOnSubmit = (e)=>{
+      e.preventDefault();
+      setForm(initialState)
+   }
   return (
-    <Form>
+    <Form onSubmit={handleOnSubmit}>
       {
         loginFields.map((field)=>{
-            return <FormInput key={field.name} label={field.label} {...field} />
+            return <FormInput key={field.name} label={field.label} {...field} onChange={handleChange}/>
         })
       }
      
