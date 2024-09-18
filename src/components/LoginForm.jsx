@@ -33,7 +33,12 @@ const LoginForm = () => {
       e.preventDefault();
    
      
-      const result = await loginUser(form)
+      const pendingPromise = loginUser(form)
+      toast.promise(pendingPromise,{
+        pending: "logging..."
+      })
+      const result = await pendingPromise
+
       const {status, message, user, accessJWT} = result
       toast[status](message)
          setForm(initialState)
