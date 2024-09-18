@@ -11,7 +11,7 @@ const userAPICall= async(method,obj,url)=> {
         })
         return response.data
     } catch (error) {
-        console.log(error.message)
+        console.log(error)
         return {
             status:"error",
             message:error.message
@@ -22,4 +22,10 @@ const userAPICall= async(method,obj,url)=> {
 export const  createUser = async (user)=>{
  const postAPIEP = apiEP+"/users"
  return userAPICall('post', user, postAPIEP) 
+}
+
+export const loginUser = async (user)=>{
+    const getAPIEP = apiEP + '/users/login'
+    console.log(getAPIEP)
+    return userAPICall('post',user , getAPIEP)
 }

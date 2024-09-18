@@ -2,13 +2,15 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import FormInput from './FormInput'
 import useForm from '../hooks/useForm'
+import { loginUser } from '../utils/axios'
+import { toast } from 'react-toastify'
 const initialState={
   email:"",
   password:""
 }
 const LoginForm = () => {
   
-  const {form , setForm, handleChange} = useForm(initialState)
+  const { form, setForm, handleOnChange } = useForm(initialState)
     const loginFields = [
       {
         name: 'email',
@@ -27,15 +29,28 @@ const LoginForm = () => {
         value:form.password
       },
     ]
-   const handleOnSubmit = (e)=>{
+   const handleOnSubmit = async(e)=>{
       e.preventDefault();
-      setForm(initialState)
+   
+     
+      const result = await loginUser(form)
+      const {status, message, user, accessJWT} = result
+      toast[status](message)
+         setForm(initialState)
    }
+    
   return (
     <Form onSubmit={handleOnSubmit}>
       {
         loginFields.map((field)=>{
-            return <FormInput key={field.name} label={field.label} {...field} onChange={handleChange}/>
+            return (
+              <FormInput
+                key={field.name}
+                label={field.label}
+                {...field}
+                onChange={handleOnChange}
+              />
+            )
         })
       }
      

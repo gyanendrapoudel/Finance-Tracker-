@@ -5,8 +5,8 @@ import { useState } from "react";
     setForm({ ...form, [name]: value })
   }
 
-const useForm = ()=>{
-      const [form, setForm] = useState({})
+const useForm = (initialSate)=>{
+      const [form, setForm] = useState(initialSate)
     
       return {
         form,setForm, handleOnChange:(e)=>handleOnChange({e,form, setForm})
