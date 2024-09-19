@@ -8,6 +8,9 @@ import 'react-toastify/dist/ReactToastify.css'
 import Login from './Pages/Login'
 import SignUp from './Pages/SignUp'
 import Layout from './Pages/Layout'
+import Dashboard from './Pages/Dashboard'
+import Transaction from './Pages/Transaction'
+import Auth from './auth/Auth'
 
 function App() {
 
@@ -15,9 +18,25 @@ function App() {
     <>
       <ToastContainer />
       <Routes>
-        <Route path='/' element={<Layout/>}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<Login />} />
           <Route path="signup" element={<SignUp />} />
+          <Route
+            path="dashboard"
+            element={
+              <Auth>
+                <Dashboard />
+              </Auth>
+            }
+          />
+          <Route
+            path="transaction"
+            element={
+              <Auth>
+                <Transaction />
+              </Auth>
+            }
+          />
         </Route>
       </Routes>
     </>
