@@ -9,3 +9,5 @@ yarn add react-toastify
 yarn add axios
 yarn add react-icons
 ```
+### Protected Routeing 
+dashboard and transaction page

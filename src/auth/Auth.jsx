@@ -1,7 +1,7 @@
 import { Navigate, replace } from "react-router-dom"
-
+import { useUser } from "../context/UserContext"
 const Auth = ({children}) => {
-    const isLogged = false
-  return (isLogged? children : Navigate({to:"/", replace}))
+        const {user} = useUser()
+  return (user?._id? children : Navigate({to:"/", replace}))
 }
 export default Auth

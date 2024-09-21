@@ -4,12 +4,16 @@ import FormInput from './FormInput'
 import useForm from '../hooks/useForm'
 import { loginUser } from '../utils/axios'
 import { toast } from 'react-toastify'
+import { useUser } from '../context/UserContext'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 const initialState={
   email:"",
   password:""
 }
 const LoginForm = () => {
-  
+  const {user, setUser} = useUser()
+  const navigate = useNavigate()
   const { form, setForm, handleOnChange } = useForm(initialState)
     const loginFields = [
       {
@@ -40,10 +44,14 @@ const LoginForm = () => {
       const result = await pendingPromise
 
       const {status, message, user, accessJWT} = result
+
       toast[status](message)
-         setForm(initialState)
+      setUser(user)
+      setForm(initialState)
    }
-    
+    useEffect(()=>{
+       user?._id && navigate("/dashboard")
+    },[user?._id, navigate])
   return (
     <Form onSubmit={handleOnSubmit}>
       {
