@@ -12,8 +12,16 @@ import { IoLogOut } from 'react-icons/io5'
 import { IoCreateOutline } from 'react-icons/io5'
 import { MdDashboard } from 'react-icons/md'
 import { MdOutlineAttachMoney } from 'react-icons/md'
+import { useUser } from '../context/UserContext';
 
 const Header=()=> {
+  const {user, setUser} = useUser()
+  const handleLogout = ()=>{
+    // 1. Removing access token
+   localStorage.removeItem("accessJWT")
+  //  2. Setting empty user
+      setUser({})
+  }
   return (
     <Navbar expand="lg" variant="dark" className="bg-dark">
       <Container fluid>
@@ -37,8 +45,8 @@ const Header=()=> {
               Transaction
             </Link>
 
-            <Link className="nav-link" to="/">
-              <IoLogOut className="fs-3 text-light" /> Logout
+            <Link className="nav-link" to="/" onClick={handleLogout}>
+              <IoLogOut className="fs-3 text-light"  /> Logout
             </Link>
           </Nav>
         </Navbar.Collapse>

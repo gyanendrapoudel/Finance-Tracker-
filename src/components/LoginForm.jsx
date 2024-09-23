@@ -45,7 +45,7 @@ const LoginForm = () => {
 
       const {status, message, user, accessJWT} = result
       localStorage.setItem("accessJWT", accessJWT)
-      localStorage.setItem("userInfo", JSON.stringify(user))
+      // localStorage.setItem("userInfo", JSON.stringify(user))
       toast[status](message)
       setUser(user)
       setForm(initialState)
