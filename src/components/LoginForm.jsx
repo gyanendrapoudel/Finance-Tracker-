@@ -6,7 +6,7 @@ import { loginUser } from '../utils/axios'
 import { toast } from 'react-toastify'
 import { useUser } from '../context/UserContext'
 import { useEffect } from 'react'
-import {  useNavigate } from 'react-router-dom'
+import {  useLocation, useNavigate } from 'react-router-dom'
 const initialState={
   email:"",
   password:""
@@ -50,9 +50,12 @@ const LoginForm = () => {
       setUser(user)
       setForm(initialState)
    }
+ 
+    const location = useLocation()
+    const goto = location?.state?.from?.pathname || "/dashboard"
     useEffect(()=>{
-       user?._id && navigate("/dashboard")
-    },[user?._id, navigate])
+       user?._id && navigate(goto)
+    },[user?._id, navigate,goto])
   return (
     <Form onSubmit={handleOnSubmit}>
       {
