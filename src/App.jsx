@@ -11,14 +11,26 @@ import Layout from './Pages/Layout'
 import Dashboard from './Pages/Dashboard'
 import Transaction from './Pages/Transaction'
 import Auth from './auth/Auth'
-import { createContext } from 'react'
-import { UserProvider } from './context/UserContext'
+
+import {  useUser } from './context/UserContext'
+import { useEffect } from 'react'
+import { loggedUser } from './utils/autoLogin'
 
 function App() {
+ const { user, setUser} = useUser()
+ useEffect(() => {
+   !user?._id && fetchUser()
+ }, [user?._id])
 
+ const fetchUser = async()=>{
+    const {status,user}=await loggedUser()
+    if(status==="success"){
+      setUser(user)
+    }
+ }
   return (
     <>
-      <UserProvider >
+      
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -42,7 +54,7 @@ function App() {
             />
           </Route>
         </Routes>
-      </UserProvider>
+      
     </>
   )
 }

@@ -23,3 +23,12 @@ dashboard and transaction page
 * on click, delete accessToken from localStorage
 * Reset user object from the state (Context API)
 * Redirect user to login page
+
+### auto login feature
+* Once user logged in, user does not need to login again for a day or specific time depending on your app.
+* check user exist or not, if not then call auto-login function 
+* auto-login function 
+  - check if `acessJWT token` exist, if so, call getUser api to get user details, else do noting.
+  - mount user in the state
+  - redirect to dashboard
+   

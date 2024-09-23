@@ -6,7 +6,7 @@ import { loginUser } from '../utils/axios'
 import { toast } from 'react-toastify'
 import { useUser } from '../context/UserContext'
 import { useEffect } from 'react'
-import { json, useNavigate } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 const initialState={
   email:"",
   password:""
