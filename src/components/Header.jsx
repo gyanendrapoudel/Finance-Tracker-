@@ -29,25 +29,32 @@ const Header=()=> {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Link className="nav-link" to="/signup">
-              <IoCreateOutline className="fs-3 text-light" /> SignUp
-            </Link>
-            <Link className="nav-link" to="/">
-              <IoLogIn className="fs-3 text-light" />
-              Login
-            </Link>
-            <Link className="nav-link" to="/dashboard">
-              <MdDashboard className="fs-3 text-light" />
-              Dashboard
-            </Link>
-            <Link className="nav-link" to="/transaction">
-              <MdOutlineAttachMoney className="fs-3 text-light" />
-              Transaction
-            </Link>
+            {user?._id ? (
+              <>
+                <Link className="nav-link" to="/dashboard">
+                  <MdDashboard className="fs-3 text-light" />
+                  Dashboard
+                </Link>
+                <Link className="nav-link" to="/transaction">
+                  <MdOutlineAttachMoney className="fs-3 text-light" />
+                  Transaction
+                </Link>
 
-            <Link className="nav-link" to="/" onClick={handleLogout}>
-              <IoLogOut className="fs-3 text-light"  /> Logout
-            </Link>
+                <Link className="nav-link" to="/" onClick={handleLogout}>
+                  <IoLogOut className="fs-3 text-light" /> Logout
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link className="nav-link" to="/signup">
+                  <IoCreateOutline className="fs-3 text-light" /> SignUp
+                </Link>
+                <Link className="nav-link" to="/">
+                  <IoLogIn className="fs-3 text-light" />
+                  Login
+                </Link>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
