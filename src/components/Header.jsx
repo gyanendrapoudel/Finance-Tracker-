@@ -35,7 +35,7 @@ const Header=()=> {
                   <MdDashboard className="fs-3 text-light" />
                   Dashboard
                 </Link>
-                <Link className="nav-link" to="/transaction">
+                <Link className="nav-link" to="/transaction" >
                   <MdOutlineAttachMoney className="fs-3 text-light" />
                   Transaction
                 </Link>

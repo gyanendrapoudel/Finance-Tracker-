@@ -7,7 +7,7 @@ const getAccessToken = ()=>{
     return localStorage.getItem("accessJWT")
 }
 
-const userAPICall= async({method,user,url,headers})=> {
+const apiCall= async({method,user,url,headers})=> {
     try {
         const response = await axios({
             method,
@@ -33,7 +33,7 @@ export const  createUser = async (user)=>{
     method:"post",
     user:user,
  }
- return userAPICall(obj) 
+ return apiCall(obj) 
 }
 
 export const loginUser = async (user)=>{
@@ -43,7 +43,7 @@ export const loginUser = async (user)=>{
         user:user,
         method:'post'
     }
-    return userAPICall(obj)
+    return apiCall(obj)
 }
 
 export const getUser = async ()=>{
@@ -55,5 +55,17 @@ export const getUser = async ()=>{
             Authorization:getAccessToken()
         }
     }
-    return userAPICall(obj)
+    return apiCall(obj)
+}
+
+
+const transactionAPI = 'http://localhost:8000/api/v1/transactions'
+
+export const createTransaction = async (transaction) => {
+  let obj = {
+    url: transactionAPI,
+    method: 'post',
+    user: transaction,
+  }
+  return apiCall(obj)
 }
