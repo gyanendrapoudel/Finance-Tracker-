@@ -54,33 +54,36 @@ const Transaction = () => {
       
     }
   return (
-    <Form className="w-50 mx-auto pt-4" onSubmit={handleOnSubmit}>
-      <Form.Group className="mb-3" controlId="fromBasicEmail">
-        <Form.Label>Transaction Type</Form.Label>
-        <Form.Select
-          aria-label="Default select example"
-          name="tType"
-          onChange={handleOnChange}
-        >
-          <option>--Select One--</option>
-          <option value="income">Income</option>
-          <option value="expenses">Expenses</option>
-        </Form.Select>
-      </Form.Group>
-
-      {formFields.map((field) => {
-        return (
-          <FormInput
-            key={field.name}
-            label={field.label}
-            {...field}
+    <Form className="w-50 mx-auto py-5  " onSubmit={handleOnSubmit}>
+      <div className="shadow-lg border border-1 p-5 mt-5 ">
+        <h4>Enter the transaction !</h4>
+        <Form.Group className="mb-3" controlId="fromBasicEmail">
+          <Form.Label>Transaction Type</Form.Label>
+          <Form.Select
+            aria-label="Default select example"
+            name="tType"
             onChange={handleOnChange}
-          />
-        )
-      })}
-      <Button variant="primary" type="submit" className='w-100'>
-        Submit
-      </Button>
+          >
+            <option>--Select One--</option>
+            <option value="income">Income</option>
+            <option value="expenses">Expenses</option>
+          </Form.Select>
+        </Form.Group>
+
+        {formFields.map((field) => {
+          return (
+            <FormInput
+              key={field.name}
+              label={field.label}
+              {...field}
+              onChange={handleOnChange}
+            />
+          )
+        })}
+        <Button variant="primary" type="submit" className="w-100">
+          Submit
+        </Button>
+      </div>
     </Form>
   )
 }
