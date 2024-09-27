@@ -7,6 +7,7 @@ import FormInput from '../components/FormInput'
 import useForm from '../hooks/useForm'
 import { createTransaction } from '../utils/axios'
 import { toast } from 'react-toastify'
+import TransactionTable from '../components/TransactionTable'
 const Transaction = () => {
     const initialState = {
       tType:"",
@@ -47,44 +48,47 @@ const Transaction = () => {
         pending:"creating transaction ..."
       })
       const {status, message,transaction} = await pendingPromise
-       if(status==="success"){
-        toast.success(message)
-       }
-        setForm(initialState)
+       toast[status](message)
+       status==="success" && setForm(initialState)
       
     }
   return (
-    <Form className="w-50 mx-auto py-5  " onSubmit={handleOnSubmit}>
-      <div className="shadow-lg border border-1 p-5 mt-5 ">
-        <h4>Enter the transaction !</h4>
-        <Form.Group className="mb-3" controlId="fromBasicEmail">
-          <Form.Label>Transaction Type</Form.Label>
-          <Form.Select
-            aria-label="Default select example"
-            name="tType"
-            onChange={handleOnChange}
-          >
-            <option>--Select One--</option>
-            <option value="income">Income</option>
-            <option value="expenses">Expenses</option>
-          </Form.Select>
-        </Form.Group>
+    <Container>
+      <Row>
+        <Form className="w-50 mx-auto py-5  " onSubmit={handleOnSubmit}>
+          <div className="shadow-lg border border-1 p-5 mt-5 ">
+            <h4>Enter the transaction !</h4>
+            <Form.Group className="mb-3" controlId="fromBasicEmail">
+              <Form.Label>Transaction Type</Form.Label>
+              <Form.Select
+                aria-label="Default select example"
+                name="tType"
+                onChange={handleOnChange}
+              >
+                <option>--Select One--</option>
+                <option value="income">Income</option>
+                <option value="expenses">Expenses</option>
+              </Form.Select>
+            </Form.Group>
 
-        {formFields.map((field) => {
-          return (
-            <FormInput
-              key={field.name}
-              label={field.label}
-              {...field}
-              onChange={handleOnChange}
-            />
-          )
-        })}
-        <Button variant="primary" type="submit" className="w-100">
-          Submit
-        </Button>
-      </div>
-    </Form>
+            {formFields.map((field) => {
+              return (
+                <FormInput
+                  key={field.name}
+                  label={field.label}
+                  {...field}
+                  onChange={handleOnChange}
+                />
+              )
+            })}
+            <Button variant="primary" type="submit" className="w-100">
+              Submit
+            </Button>
+          </div>
+        </Form>
+      </Row>
+      <TransactionTable/>
+    </Container>
   )
 }
 export default Transaction

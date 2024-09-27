@@ -66,6 +66,20 @@ export const createTransaction = async (transaction) => {
     url: transactionAPI,
     method: 'post',
     user: transaction,
+    headers: {
+      Authorization: getAccessToken(),
+    },
   }
   return apiCall(obj)
 }
+
+export const getTransactions = async()=>{
+  let obj={
+    url:transactionAPI,
+    method:"get",
+    headers:{
+        Authorization: getAccessToken()
+    }
+   }
+    return apiCall(obj)
+  }
