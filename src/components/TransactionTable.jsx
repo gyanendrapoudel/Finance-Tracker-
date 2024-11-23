@@ -2,18 +2,12 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { useEffect, useState } from 'react'
 import { getTransactions } from '../utils/axios'
-
+import { useUser } from '../context/UserContext'
 const TransactionTable = () => {
-    const [transactions, setTransactions] = useState([])
-    useEffect(() => {
-        fetchTransaction()
-        
-    }, [transactions])
-    const fetchTransaction = async()=>{
-          const {transactions, message, status} = await getTransactions()
-          status==="success" && setTransactions(transactions) 
-    }
-console.log(transactions)
+    const {transactions} = useUser()
+  
+  
+
   return (
     <Row className='p-2'>
       <h4>Transaction History</h4>

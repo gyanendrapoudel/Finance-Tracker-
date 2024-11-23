@@ -8,6 +8,8 @@ import useForm from '../hooks/useForm'
 import { createTransaction } from '../utils/axios'
 import { toast } from 'react-toastify'
 import TransactionTable from '../components/TransactionTable'
+import { useUser } from '../context/UserContext'
+import { useEffect } from 'react'
 const Transaction = () => {
     const initialState = {
       tType:"",
@@ -16,7 +18,7 @@ const Transaction = () => {
       tDate:""
     }
     const {form, setForm, handleOnChange} = useForm(initialState)
-    
+    const {fetchTransactions} = useUser()
     const formFields = [
       {
         name: 'title',
@@ -52,6 +54,9 @@ const Transaction = () => {
        status==="success" && setForm(initialState)
       
     }
+    useEffect(()=>{
+      fetchTransactions()
+    },[])
   return (
     <Container>
       <Row>
