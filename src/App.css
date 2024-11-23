@@ -8,5 +8,14 @@
 .main{
     background-color: rgb(71, 70, 70);
     
-   
+}
+.table{
+ 
+}
+.out{
+    color: red !important;
+    
+}
+.in{
+    color: green !important;
 }
