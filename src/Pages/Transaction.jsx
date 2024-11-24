@@ -51,12 +51,15 @@ const Transaction = () => {
       })
       const {status, message,transaction} = await pendingPromise
        toast[status](message)
-       status==="success" && setForm(initialState)
-      
+       if( status==="success"){
+          setForm(initialState)
+          fetchTransactions()
+       }
     }
     useEffect(()=>{
-      fetchTransactions()
+     fetchTransactions()
     },[])
+   
   return (
     <Container>
       <Row>

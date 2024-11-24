@@ -7,23 +7,34 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { FaPlusCircle } from 'react-icons/fa'
 const TransactionTable = () => {
+    const [searchTrans, setSearchTrans] = useState([])
     const {transactions} = useUser()
-    const bal = transactions.reduce((acc, t) => {
+    const bal = searchTrans.reduce((acc, t) => {
       let num = Number(t.amount)
       return t?.tType === 'income' ? acc + num : acc - num
     }, 0)
   
-  
+  const handleOnSearch = (e) => {
+    const {value} = e.target
+    const filterTrans =  transactions.filter((item)=>{
+      return item.title.toLowerCase().includes(value.toLowerCase())
+    })
+    
+   setSearchTrans(filterTrans)
+  }
+   useEffect(() => {
+     setSearchTrans(transactions)
+   }, [transactions])
 
   return (
     <>
-      <div className='d-flex justify-content-between mb-4 pt-1'>
-        <div className="">{transactions.length} transactions found!</div>
-        
-          <Form.Control type='text'/>
-          <Button>
-            <FaPlusCircle /> Add New Transaction
-          </Button>
+      <div className="d-flex justify-content-between mb-4 pt-1">
+        <div className="">{searchTrans.length} transactions found!</div>
+
+        <Form.Control type="text" onChange={handleOnSearch} />
+        <Button>
+          <FaPlusCircle /> Add New Transaction
+        </Button>
       </div>
       <Row className="p-2">
         <h4>Transaction History</h4>
@@ -38,7 +49,7 @@ const TransactionTable = () => {
             </tr>
           </thead>
           <tbody>
-            {transactions.map((t, i) => {
+            {searchTrans.map((t, i) => {
               return (
                 <tr key={t?._id}>
                   <td>{i + 1}</td>
