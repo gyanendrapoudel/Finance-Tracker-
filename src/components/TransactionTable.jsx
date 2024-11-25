@@ -6,9 +6,10 @@ import { useUser } from '../context/UserContext'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { FaPlusCircle } from 'react-icons/fa'
+import { CustomModal } from './CustomModal'
 const TransactionTable = () => {
     const [searchTrans, setSearchTrans] = useState([])
-    const {transactions} = useUser()
+    const { transactions, toggleModal } = useUser()
     const bal = searchTrans.reduce((acc, t) => {
       let num = Number(t.amount)
       return t?.tType === 'income' ? acc + num : acc - num
@@ -28,11 +29,11 @@ const TransactionTable = () => {
 
   return (
     <>
-      <div className="d-flex justify-content-between mb-4 pt-1">
+      <div className="d-flex justify-content-between my-4 pt-1">
         <div className="">{searchTrans.length} transactions found!</div>
 
         <Form.Control type="text" onChange={handleOnSearch} />
-        <Button>
+        <Button onClick={() => toggleModal(true)}>
           <FaPlusCircle /> Add New Transaction
         </Button>
       </div>

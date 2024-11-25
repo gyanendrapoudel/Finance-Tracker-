@@ -10,6 +10,7 @@ import { toast } from 'react-toastify'
 import TransactionTable from '../components/TransactionTable'
 import { useUser } from '../context/UserContext'
 import { useEffect } from 'react'
+import { CustomModal } from '../components/CustomModal'
 const Transaction = () => {
     const initialState = {
       tType:"",
@@ -18,7 +19,7 @@ const Transaction = () => {
       tDate:""
     }
     const {form, setForm, handleOnChange} = useForm(initialState)
-    const {fetchTransactions} = useUser()
+    const { fetchTransactions, toggleModal } = useUser()
     const formFields = [
       {
         name: 'title',
@@ -54,6 +55,8 @@ const Transaction = () => {
        if( status==="success"){
           setForm(initialState)
           fetchTransactions()
+          // close the modal after submit successfully created a transaction
+          toggleModal(true)
        }
     }
     useEffect(()=>{
@@ -63,39 +66,41 @@ const Transaction = () => {
   return (
     <Container>
       <Row>
-        <Form className="w-50 mx-auto py-5  " onSubmit={handleOnSubmit}>
-          <div className="shadow-lg border border-1 p-5 mt-5 ">
-            <h4>Enter the transaction !</h4>
-            <Form.Group className="mb-3" controlId="fromBasicEmail">
-              <Form.Label>Transaction Type</Form.Label>
-              <Form.Select
-                aria-label="Default select example"
-                name="tType"
-                onChange={handleOnChange}
-              >
-                <option>--Select One--</option>
-                <option value="income">Income</option>
-                <option value="expenses">Expenses</option>
-              </Form.Select>
-            </Form.Group>
-
-            {formFields.map((field) => {
-              return (
-                <FormInput
-                  key={field.name}
-                  label={field.label}
-                  {...field}
+        <CustomModal>
+          <Form className="w-100 mx-auto   " onSubmit={handleOnSubmit}>
+            <div className="shadow-lg border border-1 p-5 mt-5 ">
+              <Form.Group className="mb-3" controlId="fromBasicEmail">
+                <Form.Label>Transaction Type</Form.Label>
+                <Form.Select
+                  aria-label="Default select example"
+                  name="tType"
                   onChange={handleOnChange}
-                />
-              )
-            })}
-            <Button variant="primary" type="submit" className="w-100">
-              Submit
-            </Button>
-          </div>
-        </Form>
+                >
+                  <option>--Select One--</option>
+                  <option value="income">Income</option>
+                  <option value="expenses">Expenses</option>
+                </Form.Select>
+              </Form.Group>
+
+              {formFields.map((field) => {
+                return (
+                  <FormInput
+                    key={field.name}
+                    label={field.label}
+                    {...field}
+                    onChange={handleOnChange}
+                    
+                  />
+                )
+              })}
+              <Button variant="primary" type="submit" className="w-100" >
+                Submit
+              </Button>
+            </div>
+          </Form>
+        </CustomModal>
       </Row>
-      <TransactionTable/>
+      <TransactionTable />
     </Container>
   )
 }
