@@ -1,16 +1,17 @@
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { useEffect, useState } from 'react'
-import { getTransactions } from '../utils/axios'
+import { deleteTransactions, getTransactions } from '../utils/axios'
 import { useUser } from '../context/UserContext'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { FaPlusCircle } from 'react-icons/fa'
 import { CustomModal } from './CustomModal'
+import { toast } from 'react-toastify'
 const TransactionTable = () => {
     const [searchTrans, setSearchTrans] = useState([])
     const [idDelTrans, setIdDelTrans] = useState([])
-    const { transactions, toggleModal } = useUser()
+    const { transactions, toggleModal,fetchTransactions } = useUser()
     const bal = searchTrans.reduce((acc, t) => {
       let num = Number(t.amount)
       return t?.tType === 'income' ? acc + num : acc - num
@@ -35,13 +36,25 @@ const TransactionTable = () => {
     }else{
       setIdDelTrans(idDelTrans.filter((ids) => ids !== value))
     }
-   
-   
+  }
+  const handleDelete = async()=>{
+    if(confirm("Are you sure that you want to delete transactions")){
+
+    
+    const pending =  deleteTransactions(idDelTrans)
+    toast.promise(pending, {
+      pending:"Please wait..."
+    })
+    const {status, message} = await pending
+    toast[status](message);
+    status === 'success' && fetchTransactions()
+    
+  }
   }
    useEffect(() => {
      setSearchTrans(transactions)
    }, [transactions])
- console.log(idDelTrans)
+
   return (
     <>
       <div className="d-flex justify-content-between my-4 pt-1">
@@ -125,7 +138,7 @@ const TransactionTable = () => {
           </tbody>
         </table>
       </Row>
-      {idDelTrans.length>0 && <Button variant='danger' className='w-100'>
+      {idDelTrans.length>0 && <Button variant='danger' className='w-100' onClick={handleDelete}>
         Delete
       </Button>}
     </>

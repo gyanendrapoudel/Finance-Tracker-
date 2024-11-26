@@ -83,3 +83,14 @@ export const getTransactions = async()=>{
    }
     return apiCall(obj)
   }
+
+  export const deleteTransactions = (ids) =>
+    {
+    let obj={url:transactionAPI,
+      method: 'delete',
+      headers: {
+        Authorization: getAccessToken(),
+      },
+      user:ids}
+      return apiCall(obj)
+    }
