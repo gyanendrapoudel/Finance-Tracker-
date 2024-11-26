@@ -1,12 +1,10 @@
 import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import { useEffect, useState } from 'react'
 import { deleteTransactions, getTransactions } from '../utils/axios'
 import { useUser } from '../context/UserContext'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { FaPlusCircle } from 'react-icons/fa'
-import { CustomModal } from './CustomModal'
 import { toast } from 'react-toastify'
 const TransactionTable = () => {
     const [searchTrans, setSearchTrans] = useState([])

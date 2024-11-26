@@ -2,8 +2,6 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { createUser } from '../utils/axios'
 import FormInput from './FormInput'
-
-import { useState } from 'react'
 import { toast } from 'react-toastify'
 import useForm from '../hooks/useForm'
 const initialState = {
