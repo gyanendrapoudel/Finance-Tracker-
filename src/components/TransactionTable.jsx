@@ -9,6 +9,7 @@ import { FaPlusCircle } from 'react-icons/fa'
 import { CustomModal } from './CustomModal'
 const TransactionTable = () => {
     const [searchTrans, setSearchTrans] = useState([])
+    const [idDelTrans, setIdDelTrans] = useState([])
     const { transactions, toggleModal } = useUser()
     const bal = searchTrans.reduce((acc, t) => {
       let num = Number(t.amount)
@@ -23,10 +24,24 @@ const TransactionTable = () => {
     
    setSearchTrans(filterTrans)
   }
+  const handleCheck = (e)=>{
+    const {checked, value} = e.target
+    if(value==="all"){
+        checked ? setIdDelTrans(searchTrans.map((item)=>item._id)) : setIdDelTrans([])
+        return
+    }
+    if(checked){
+        setIdDelTrans([...idDelTrans,value])
+    }else{
+      setIdDelTrans(idDelTrans.filter((ids) => ids !== value))
+    }
+   
+   
+  }
    useEffect(() => {
      setSearchTrans(transactions)
    }, [transactions])
-
+ console.log(idDelTrans)
   return (
     <>
       <div className="d-flex justify-content-between my-4 pt-1">
@@ -39,6 +54,19 @@ const TransactionTable = () => {
       </div>
       <Row className="p-2">
         <h4>Transaction History</h4>
+        <div className=" fs-5 my-1">
+          <input
+            type="checkbox"
+            onChange={handleCheck}
+            value={'all'}
+            checked={idDelTrans.length === searchTrans.length}
+            className="me-3 "
+            style={{ transform: "scale(1.5)" }}
+            
+          />
+          <label htmlFor="">Select All</label>
+        </div>
+        <div className=""></div>
         <table className="table table-striped table-dark">
           <thead>
             <tr>
@@ -53,7 +81,17 @@ const TransactionTable = () => {
             {searchTrans.map((t, i) => {
               return (
                 <tr key={t?._id}>
-                  <td>{i + 1}</td>
+                
+                  <td className='d-flex justify-content-start '>
+                    <input
+                      className='me-2'
+                      type="checkbox"
+                      onChange={handleCheck}
+                      value={t?._id}
+                      checked={idDelTrans.includes(t?._id)}
+                    />
+                    {i + 1}{' '}
+                  </td>
                   <td>{(t?.createdAt).slice(0, 10)}</td>
                   <td>{t?.title}</td>
 
@@ -87,6 +125,9 @@ const TransactionTable = () => {
           </tbody>
         </table>
       </Row>
+      {idDelTrans.length>0 && <Button variant='danger' className='w-100'>
+        Delete
+      </Button>}
     </>
   )
 }

@@ -56,7 +56,7 @@ const Transaction = () => {
           setForm(initialState)
           fetchTransactions()
           // close the modal after submit successfully created a transaction
-          toggleModal(true)
+          toggleModal(false)
        }
     }
     useEffect(()=>{
