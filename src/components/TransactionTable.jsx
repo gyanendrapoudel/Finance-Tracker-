@@ -58,7 +58,7 @@ const TransactionTable = () => {
       <div className="d-flex justify-content-between my-4 pt-1">
         <div className="">{searchTrans.length} transactions found!</div>
 
-        <Form.Control type="text" onChange={handleOnSearch} />
+        <Form.Control type="text" onChange={handleOnSearch} placeholder='Search Transactions' />
         <Button onClick={() => toggleModal(true)}>
           <FaPlusCircle /> Add New Transaction
         </Button>
