@@ -1,7 +1,6 @@
 import axios from "axios";
 
-
-const apiEP = 'http://localhost:8000/api/v1'
+const apiEP = import.meta.env.VITE_ROOT_API+'/api/v1'
 
 const getAccessToken = ()=>{
     return localStorage.getItem("accessJWT")
@@ -59,7 +58,7 @@ export const getUser = async ()=>{
 }
 
 
-const transactionAPI = 'http://localhost:8000/api/v1/transactions'
+const transactionAPI = apiEP+'/transactions'
 
 export const createTransaction = async (transaction) => {
   let obj = {
