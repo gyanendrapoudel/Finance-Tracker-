@@ -4,6 +4,7 @@ import { createUser } from '../utils/axios'
 import FormInput from './FormInput'
 import { toast } from 'react-toastify'
 import useForm from '../hooks/useForm'
+import { useState } from 'react'
 const initialState = {
   name:"",
   email:"",
@@ -12,9 +13,9 @@ const initialState = {
 }
 function BasicExample() {
   const {form, setForm, handleOnChange} = useForm(initialState)
+  const [btnDisable, setBtnDisable] = useState(false)
    console.log(form)
   const inputFields = [
-  
     {
       label: 'Name',
       type: 'text',
@@ -49,6 +50,7 @@ function BasicExample() {
 
   const handleOnSubmit = async (e)=>{
     e.preventDefault();
+    setBtnDisable(true)
     const{confirmPassword, ...rest}= form
     if(confirmPassword !== rest.password) {
       return toast.error("Password does not match!")
@@ -59,6 +61,7 @@ function BasicExample() {
       if (status === 'success') {
         setForm(initialState)
       }
+      setBtnDisable(false)
   }
 
 
@@ -67,7 +70,7 @@ function BasicExample() {
       {inputFields.map((field) => (
         <FormInput key={field.name} {...field} onChange={handleOnChange} />
       ))}
-      <Button variant="primary" type="submit" className="w-100">
+      <Button variant="primary" type="submit" className="w-100" disabled={btnDisable}>
         Submit
       </Button>
     </Form>

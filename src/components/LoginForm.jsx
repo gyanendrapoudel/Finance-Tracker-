@@ -5,7 +5,7 @@ import useForm from '../hooks/useForm'
 import { loginUser } from '../utils/axios'
 import { toast } from 'react-toastify'
 import { useUser } from '../context/UserContext'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import {  useLocation, useNavigate } from 'react-router-dom'
 const initialState={
   email:"",
@@ -13,6 +13,7 @@ const initialState={
 }
 const LoginForm = () => {
   const {user, setUser} = useUser()
+  const [btnDisable, setBtnDisable] = useState(false)
   const navigate = useNavigate()
   const { form, setForm, handleOnChange } = useForm(initialState)
     const loginFields = [
@@ -36,7 +37,7 @@ const LoginForm = () => {
    const handleOnSubmit = async(e)=>{
       e.preventDefault();
    
-     
+      setBtnDisable(true)
       const pendingPromise = loginUser(form)
       toast.promise(pendingPromise,{
         pending: "logging..."
@@ -49,6 +50,7 @@ const LoginForm = () => {
       toast[status](message)
       setUser(user)
       setForm(initialState)
+      setBtnDisable(false)
    }
  
     const location = useLocation()
@@ -71,7 +73,7 @@ const LoginForm = () => {
         })
       }
      
-      <Button variant="primary" type="submit" className="w-100 mt-2">
+      <Button variant="primary" type="submit" className="w-100 mt-2" disabled={btnDisable}>
         Submit
       </Button>
     </Form>
